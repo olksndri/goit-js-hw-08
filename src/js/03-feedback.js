@@ -9,8 +9,8 @@ const LOCALSTORAGE_KEY = 'feedback-form-state';
 
 let inpObj = { email: '', message: '' };
 
-checkingStorage();
-console.log('Received from storage: ', load(LOCALSTORAGE_KEY));
+// save(LOCALSTORAGE_KEY, '');
+// console.log(load(LOCALSTORAGE_KEY));
 
 btn.addEventListener('click', removeStorage);
 form.addEventListener(
@@ -43,3 +43,6 @@ function removeStorage() {
   input.value = '';
   textarea.value = '';
 }
+
+checkingStorage();
+console.log('Received from storage: ', load(LOCALSTORAGE_KEY));
