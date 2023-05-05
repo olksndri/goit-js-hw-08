@@ -9,11 +9,10 @@ const LOCALSTORAGE_KEY = 'feedback-form-state';
 let inpObj = { email: '', message: '' };
 
 form.addEventListener('submit', event => {
+  event.preventDefault();
   if (input.value.trim() === '') {
-    event.preventDefault();
     alert('Please write your Email');
   } else if (textarea.value.trim() === '') {
-    event.preventDefault();
     alert('Please write your message');
   } else {
     removeStorage(event);
@@ -43,8 +42,7 @@ function checkingStorage() {
   }
 }
 
-function removeStorage(event) {
-  event.preventDefault();
+function removeStorage() {
   console.log(load(LOCALSTORAGE_KEY));
   inpObj = { email: '', message: '' };
   save(LOCALSTORAGE_KEY, inpObj);
