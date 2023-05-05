@@ -4,20 +4,26 @@ import throttle from 'lodash.throttle';
 const form = document.querySelector('.feedback-form');
 const input = document.querySelector('input[name="email"]');
 const textarea = document.querySelector('textarea[name="message"]');
-const btn = document.querySelector('button[type="submit"]');
 const LOCALSTORAGE_KEY = 'feedback-form-state';
 
 let inpObj = { email: '', message: '' };
 
-// save(LOCALSTORAGE_KEY, '');
-// console.log(load(LOCALSTORAGE_KEY));
-
-btn.addEventListener('click', removeStorage);
+form.addEventListener('submit', event => {
+  if (input.value.trim() === '') {
+    event.preventDefault();
+    alert('Please write your Email');
+  } else if (textarea.value.trim() === '') {
+    event.preventDefault();
+    alert('Please write your message');
+  } else {
+    removeStorage(event);
+  }
+});
 form.addEventListener(
   'input',
   throttle(function () {
-    inpObj.email = input.value;
-    inpObj.message = textarea.value;
+    inpObj.email = input.value.trim();
+    inpObj.message = textarea.value.trim();
     save(LOCALSTORAGE_KEY, inpObj);
   }, 500)
 );
@@ -37,7 +43,9 @@ function checkingStorage() {
   }
 }
 
-function removeStorage() {
+function removeStorage(event) {
+  event.preventDefault();
+  console.log(load(LOCALSTORAGE_KEY));
   inpObj = { email: '', message: '' };
   save(LOCALSTORAGE_KEY, inpObj);
   input.value = '';
@@ -45,4 +53,3 @@ function removeStorage() {
 }
 
 checkingStorage();
-console.log('Received from storage: ', load(LOCALSTORAGE_KEY));
